@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
         <title><%= title %></title>
@@ -17,6 +17,9 @@
         </header>
         <main>
             <p><%= username %></p>
+            <form action="../logout" method="get">
+                <input type="submit" value="Logout">
+            </form>
         </main>
         <footer></footer>
     </body>

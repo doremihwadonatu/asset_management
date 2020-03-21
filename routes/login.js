@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET Login page. */
 router.get('/', function(req, res, next) {
-  res.redirect('/login');
+  res.render('login', { title: '資産管理アプリ' });
 });
 
 /* POST Login page. */
