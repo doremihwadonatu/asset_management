@@ -8,12 +8,4 @@ router.get('/', function(req, res, next) {
   });
 });
 
-/* POST Login page. */
-router.post('/', function(req, res, next){
-  res.render('logout', {
-    title: "結果！"
-  });
-
-});
-
 module.exports = router;

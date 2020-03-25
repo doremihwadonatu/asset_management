@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
+var flash = require('express-flash');
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
@@ -10,6 +12,19 @@ var mypageRouter = require('./routes/mypage');
 var logoutRouter = require('./routes/logout');
 
 var app = express();
+
+// セッション情報設定 
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 30 * 60 * 1000
+  }
+}));
+
+// flash設定
+app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +36,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// router settings
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/mypage', mypageRouter);
@@ -41,9 +57,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.post('/', function(req, res) {
-  res.send('POST is sended.');
-})
 
 module.exports = app;

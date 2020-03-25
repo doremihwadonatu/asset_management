@@ -1,19 +1,27 @@
 <!doctype html>
 <html>
     <head>
-        <title><%= title %></title>
+        <title>資産管理アプリ</title>
         <link rel='stylesheet' href='/stylesheets/style.css' />
     </head>
     <body>
-        <h1><%= title %></h1>
-        <header>ログイン</header>
+        <header>
+            <h1>資産管理アプリ</h1>
+        </header>
+
         <main>
-            <form action="mypage/" method="post">
-                <div><input type="text" name="username" id="username" placeholder="Username"></div>
+            <!-- フラッシュメッセージ -->
+            <!-- ログイン失敗時表示 -->
+            <% if(messages.failure){ %>
+                <h1><%=messages.failure %></h1>
+            <% } %>
+            
+            <h2>ログイン</h2>
+            <form action="mypage" method="post">
+                <div><input type="text" name="userName" id="userName" placeholder="Username"></div>
                 <div><input type="password" name="password" id="password" placeholder="Password"></div>
-                <div><input type="submit" value="Login"></div>
+                <div><button name="/mypage" type="submit">ログイン</button></div>
             </form>
         </main>
-        <footer></footer>
     </body>
 </html>
