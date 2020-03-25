@@ -16,3 +16,22 @@ JSに慣れるため、Expressフレームワークにて作成
 | 03/20(金) | 1.0 | GitHubにリポジトリ作成 |
 | 03/19(木) | 0.0 | 在宅のため空き時間は家庭優先 |
 | 03/18(水) | 0.5 | Expressアプリの雛形作成 |
+
+## 各自環境での導入方法
+
+1. Node.JSのインストール  
+  https://nodejs.org/ja/ からインストールする
+
+1. Git cloneしてソース落としてくる。  
+   該当ディレクトリに移動
+
+1. npmアップデート  
+   `npm install -g npm`
+
+1. npm packageをインストール  
+   `npm install`
+
+1. Webサーバを起動
+   `npm start`
+
+1. localhost ポート3000番でアクセス
