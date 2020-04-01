@@ -1,4 +1,5 @@
 var express = require('express');
+const bcrypt = require('bcrypt');
 var router = express.Router();
 
 var db = require('mysql');
@@ -10,6 +11,12 @@ router.post('/', function(req, res, next) {
   if(req.body.userName) {
 
     req.session.userName = req.body.userName;
+    
+    const saltRounds = 10;
+    const reqPassword = req.body.password;
+    var salt = bcrypt.genSaltSync(saltRounds);
+    var hash = bcrypt.hashSync(reqPassword, salt);
+    console.log(salt, hash);
 
     // DB設定
     const con = db.createConnection({
@@ -26,11 +33,21 @@ router.post('/', function(req, res, next) {
         next();
       }
       if(rows.length != 1){
-        console.log( err );
+        console.log( rows.count );
         req.flash('failure', 'ログイン失敗、ユーザー名またはパスワードが誤りです。\n');
         res.redirect('/login');
       } else {
-        res.render('mypage', { title: 'マイページ', userName: rows[0].nickname });
+        var data = rows[0].pw;
+        var result = bcrypt.compareSync(data, hash);
+        console.log(result);
+        if(!result) {
+            console.log(data);
+            console.log(hash);
+            req.flash('failure', 'ログイン失敗、ユーザー名またはパスワードが誤りです。\n');
+            res.redirect('/login');
+        } else {
+            res.render('mypage', { title: 'マイページ', userName: rows[0].nickname });
+        }
       }
     });
 
